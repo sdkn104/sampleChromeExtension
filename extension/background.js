@@ -20,29 +20,6 @@ chrome.runtime.onMessage.addListener((message, sender) => {
 
 chrome.webRequest.onCompleted.addListener(details => {
      console.log("listener")
-     console.log(details);
-      chrome.storage.local.get('urls', function(data){ 
-        console.log("get data")
-        console.log(data)
-        let urls = [];
-        if( data.urls ) {
-            urls = data.urls;
-        }
-        urls.push(details);
-        chrome.storage.local.set({urls: urls}, function() {
-            console.log('Value is set to ');
-            console.log(urls);
-        });
-
-        chrome.scripting.executeScript( { 
-             target: {tabId: details.tabId}, 
-             func: function(details, urls){ console.log("executed script") }, 
-             args: [details, urls] 
-        }, 
-        () => { 
-            console.log("injected")
-        }); 
-    }); 
 }, 
 { urls: ['<all_urls>'] }
 );
